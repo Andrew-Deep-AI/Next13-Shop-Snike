@@ -15,12 +15,11 @@ interface ProductPageProps {
 
 const getProduct = cache(async (id: string) => {
   const product = await prisma.product.findUnique({ where: { id } });
-
   if (!product) notFound();
   return product;
 });
 
-export async function genetateMetadata({
+export async function generateMetadata({
   params: { id },
 }: ProductPageProps): Promise<Metadata> {
   const product = await getProduct(id);
@@ -49,6 +48,7 @@ export default async function ProductPage({
         className="rounded-lg"
         priority
       />
+
       <div>
         <h1 className="text-5xl font-bold">{product.name}</h1>
         <PriceTag price={product.price} className="mt-4" />
